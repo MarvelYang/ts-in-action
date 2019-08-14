@@ -38,3 +38,33 @@ interface Names {
     [x: string]: string;
     [z: number]: string
 }
+
+// let addFun: (x: number, y: number) => number
+
+// 接口定义函数
+// interface Add {
+//     (x: number, y: number): number
+// }
+
+type Add = (x: number, y: number) => number // 别名定义函数格式
+let addFun: Add = (a, b) => a + b
+
+// 混合类型接口，定义一个类库
+interface Lib {
+    (): void;
+    version: string;
+    doSomething(): void;
+}
+
+function getLib() {
+    let lib: Lib = (() => { }) as Lib
+    lib.version = '1.0'
+    lib.doSomething = () => { }
+    return lib
+}
+
+let lib1 = getLib()
+lib1();
+lib1.doSomething();
+
+let lib2 = getLib();
