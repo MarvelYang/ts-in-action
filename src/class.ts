@@ -1,5 +1,14 @@
-class Dog {
+// 抽象类
+abstract class Animal {
+    eat() {
+        console.log('eat')
+    }
+    abstract sleep(): void // 抽象方法
+}
+
+class Dog extends Animal {
     constructor(name: string) {
+        super()
         this.name = name
     }
     name: string
@@ -8,20 +17,37 @@ class Dog {
     protected pro() { } // 保护属性
     readonly legs: number = 4 // 只读属性
     static food: string = 'bones'
-}
-console.log(Dog.prototype)
-let dog = new Dog('wangwang')
-console.log(dog)
-console.log(Dog.food)
-
-// 类的继承
-class Husky extends Dog {
-    constructor(name: string, public color: string) {
-        super(name)
-        this.color = color
+    sleep() {
+        console.log('dog sleep')
     }
-    // color: string 在参数中直接添加修饰符，可以省略
+}
+let dog = new Dog('wangwang')
+dog.eat()
+
+class Cat extends Animal {
+    sleep() {
+        console.log('cat sleep')
+    }
+}
+let cat = new Cat()
+
+let animals: Animal[] = [dog, cat]
+animals.forEach(i => i.sleep())
+
+class WorkFlow {
+    step1() {
+        return this
+    }
+    step2() {
+        return this
+    }
+}
+new WorkFlow().step1().step2()
+
+class Myflow extends WorkFlow {
+    next() {
+        return this
+    }
 }
 
-let husky = new Husky('ha', 'black')
-console.log(Husky.food)
+new Myflow().next().step1().next().step2()
